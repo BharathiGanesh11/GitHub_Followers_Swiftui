@@ -9,9 +9,15 @@ import SwiftUI
 
 @main
 struct Github_Followers_SwiftuiApp: App {
+     
+    init() {
+        UITabBar.appearance().backgroundColor = .clear
+        UITextField.appearance().tintColor = .label
+    }
+    
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            GFTabView()
         }
     }
 }
