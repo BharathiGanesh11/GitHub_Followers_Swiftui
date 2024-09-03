@@ -18,11 +18,12 @@ struct GFButton: View {
             Text(btnTitle)
                 .font(.headline)
                 .foregroundStyle(.white)
+                .frame(height: 55)
+                .frame(maxWidth: .infinity)
+                .background(backgroundColor)
+                .cornerRadius(10)
         })
-        .frame(height: 55)
-        .frame(maxWidth: .infinity)
-        .background(backgroundColor)
-        .cornerRadius(10)
+        
     }
 }
 

@@ -25,11 +25,14 @@ enum CommonWords
     static let enterUserName = "Enter a Username"
     static let getFollowers = "Get Followers"
     static let plsEnterUserNameToSearch = "Please Enter a User Name to Search"
+    static let done = "Done"
+    static let getProfile = "Get Profile"
 }
 
 enum Images
 {
     static let logo = Image("Logo")
+    static let placeHolderImg = Image("PlaceHolder")
 }
 
 enum Device {
@@ -44,4 +47,6 @@ enum GFColors {
     static let sysGreen = Color(uiColor: UIColor.systemGreen)
     static let sysPink = Color(uiColor: UIColor.systemPink)
     static let systemBackground = Color(uiColor: UIColor.systemBackground)
+    static let secondarySysBackground = Color(uiColor: UIColor.secondarySystemBackground)
+    static let sysPurple = Color(uiColor: UIColor.systemPurple)
 }

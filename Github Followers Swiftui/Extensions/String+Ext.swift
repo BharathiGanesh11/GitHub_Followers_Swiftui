@@ -21,6 +21,6 @@ extension String
     func convertToGFDateFormat() -> String
     {
         guard let date = self.convertToDate() else { return "N/A" }
-        return date.convertDateToMonthAndYearFormat()
+        return "Github Since " + date.convertDateToMonthAndYearFormat()
     }
 }
