@@ -34,6 +34,8 @@ class FollowerViewModel : ObservableObject {
         }
     }
     
+    @Published var dummyVar = ""
+    
     func getFollowers(userName : String , page : Int)
     {
         restrictExe = true
