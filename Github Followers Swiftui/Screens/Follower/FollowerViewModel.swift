@@ -24,6 +24,16 @@ class FollowerViewModel : ObservableObject {
     
     @Published var restrictExe : Bool = true
     
+    @Published var userName : String = ""
+    {
+        didSet
+        {
+            followers = []
+            page = 1
+            getFollowers(userName: userName, page: page)
+        }
+    }
+    
     func getFollowers(userName : String , page : Int)
     {
         restrictExe = true

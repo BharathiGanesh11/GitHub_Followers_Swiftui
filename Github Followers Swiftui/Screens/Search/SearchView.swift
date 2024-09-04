@@ -53,6 +53,9 @@ struct SearchView: View {
                     GFAlert(showAlert: $showAlert , message: CommonWords.plsEnterUserNameToSearch)
                 }
             }
+            .onAppear{
+                searchVM.userName = ""
+            }
         }
     }
     

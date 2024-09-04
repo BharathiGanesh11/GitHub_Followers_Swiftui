@@ -12,6 +12,8 @@ struct GFTextField: View {
     @Binding var value : String
     var body: some View {
         TextField(placeHolder, text: $value)
+            .textInputAutocapitalization(.never)
+            .autocorrectionDisabled()
             .font(.title2)
             .fontDesign(.serif)
             .fontWeight(.semibold)

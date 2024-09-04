@@ -11,6 +11,7 @@ struct UserInfoView: View {
     @ObservedObject var followerVM : FollowerViewModel
     @ObservedObject var userInfoVM = UserInfoViewModel.shared
     @Environment(\.dismiss) var dismiss
+    @State var showUserProfile : Bool = false
     var body: some View {
         let width = Device.screenWidth * 0.25
         NavigationStack
@@ -19,9 +20,24 @@ struct UserInfoView: View {
             {
                 HStack(alignment:.center)
                 {
-                    //RoundedRectangle(cornerRadius: 10)
-                    GFImageView(urlStr: userInfoVM.user?.avatarUrl ?? "")
+                    if let avatarUrl = userInfoVM.user?.avatarUrl
+                    {
+                        GFImageView(urlStr: Binding(get: {
+                            avatarUrl
+                        }, set: { _ in
+                            return
+                        }))
                         .frame(width: width, height: width)
+                    }
+                    else
+                    {
+                        GFImageView(urlStr: Binding(get: {
+                            userInfoVM.user?.avatarUrl ?? ""
+                        }, set: { _ in
+                            return
+                        }))
+                        .frame(width: width, height: width)
+                    }
                     
                     VStack(alignment:.leading)
                     {
@@ -57,15 +73,23 @@ struct UserInfoView: View {
                     {
                         HStack
                         {
-                            GFInfoView(icon: InfoItemType.repos.icon, title: InfoItemType.repos.title, count: userInfoVM.user?.publicRepos ?? 0)
+                            GFInfoView(icon: InfoItemType.repos.icon, title: InfoItemType.repos.title, count: Binding(get: {
+                                userInfoVM.user?.publicRepos ?? 0
+                            }, set: { newValue in
+                                return
+                            }))
                             
                             Spacer()
                             
-                            GFInfoView(icon: InfoItemType.gists.icon, title: InfoItemType.gists.title, count: userInfoVM.user?.publicGists ?? 0)
+                            GFInfoView(icon: InfoItemType.gists.icon, title: InfoItemType.gists.title, count: Binding(get: {
+                                userInfoVM.user?.publicGists ?? 0
+                            }, set: { newValue in
+                                return
+                            }))
                         }
                         
                         GFButton(btnTitle: CommonWords.getProfile, backgroundColor: GFColors.sysPurple) {
-                            
+                            showUserProfile.toggle()
                         }
                     }
                     .padding(.horizontal , 12)
@@ -79,15 +103,24 @@ struct UserInfoView: View {
                     {
                         HStack
                         {
-                            GFInfoView(icon: InfoItemType.following.icon, title: InfoItemType.following.title, count:  userInfoVM.user?.following ?? 0)
+                            GFInfoView(icon: InfoItemType.following.icon, title: InfoItemType.following.title, count:  Binding(get: {
+                                userInfoVM.user?.following ?? 0
+                            }, set: { newValue in
+                                return
+                            }))
                             
                             Spacer()
                             
-                            GFInfoView(icon: InfoItemType.followers.icon, title: InfoItemType.followers.title, count:  userInfoVM.user?.followers ?? 0)
+                            GFInfoView(icon: InfoItemType.followers.icon, title: InfoItemType.followers.title, count:  Binding(get: {
+                                userInfoVM.user?.followers ?? 0
+                            }, set: { newValue in
+                                return
+                            }))
                         }
                         
                         GFButton(btnTitle: CommonWords.getFollowers, backgroundColor: GFColors.sysGreen) {
-                            
+                            dismiss.callAsFunction()
+                            followerVM.userName = userInfoVM.user?.login ?? ""
                         }
                     }
                     .padding(.horizontal , 12)
@@ -129,6 +162,18 @@ struct UserInfoView: View {
                         dismiss.callAsFunction()
                     }
                 }
+            }
+            .fullScreenCover(isPresented: $showUserProfile) {
+                if let url = URL(string: userInfoVM.user?.htmlUrl ?? "")
+                {
+                    SafariView(url: url)
+                }
+            }
+            .onAppear{
+                print(userInfoVM.user)
+            }
+            .onDisappear{
+                userInfoVM.user = nil
             }
         }
     }

@@ -37,6 +37,7 @@
 		A9F0492C2C84871A00475DF0 /* FolloweCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9F0492B2C84871A00475DF0 /* FolloweCell.swift */; };
 		A9F0492E2C848BAF00475DF0 /* FollowerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9F0492D2C848BAF00475DF0 /* FollowerViewModel.swift */; };
 		A9F049302C848F2200475DF0 /* GFLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9F0492F2C848F2200475DF0 /* GFLoadingView.swift */; };
+		A9F829CA2C881B5C00CBB38A /* SafariView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9F829C92C881B5C00CBB38A /* SafariView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -71,6 +72,7 @@
 		A9F0492B2C84871A00475DF0 /* FolloweCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolloweCell.swift; sourceTree = "<group>"; };
 		A9F0492D2C848BAF00475DF0 /* FollowerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowerViewModel.swift; sourceTree = "<group>"; };
 		A9F0492F2C848F2200475DF0 /* GFLoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GFLoadingView.swift; sourceTree = "<group>"; };
+		A9F829C92C881B5C00CBB38A /* SafariView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafariView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -211,6 +213,7 @@
 				A9F0492F2C848F2200475DF0 /* GFLoadingView.swift */,
 				A97C23A92C86E7030010CF25 /* GFInfoView.swift */,
 				A97C23AB2C86E8AC0010CF25 /* GFInfoContainerView.swift */,
+				A9F829C92C881B5C00CBB38A /* SafariView.swift */,
 			);
 			path = CustomViews;
 			sourceTree = "<group>";
@@ -310,6 +313,7 @@
 				A9F0492A2C847FEE00475DF0 /* GFImageView.swift in Sources */,
 				A9B127AD2C83356C0055ADEE /* SearchViewModel.swift in Sources */,
 				A90895A62C83125B00635D20 /* GFTabView.swift in Sources */,
+				A9F829CA2C881B5C00CBB38A /* SafariView.swift in Sources */,
 				A97C23A82C86E4DF0010CF25 /* UserInfoViewModel.swift in Sources */,
 				A9F049302C848F2200475DF0 /* GFLoadingView.swift in Sources */,
 				A90895902C830F8E00635D20 /* User.swift in Sources */,

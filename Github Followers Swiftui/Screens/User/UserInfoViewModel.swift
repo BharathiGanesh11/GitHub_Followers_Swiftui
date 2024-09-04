@@ -33,7 +33,9 @@ class UserInfoViewModel : ObservableObject
                     self.viewState = .none
                 }
             case .failure(let error):
-                viewState = .error
+                DispatchQueue.main.async {
+                    self.viewState = .error
+                }
             }
         }
     }

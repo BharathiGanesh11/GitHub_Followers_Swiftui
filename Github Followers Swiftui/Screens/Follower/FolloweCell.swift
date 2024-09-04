@@ -8,11 +8,11 @@
 import SwiftUI
 
 struct FolloweCell: View {
-    @State var follower : Follower
+    @Binding var follower : Follower
     var body: some View {
         VStack
         {
-            GFImageView(urlStr: follower.avatarUrl)
+            GFImageView(urlStr: $follower.avatarUrl)
                 .frame(width: 80, height: 80, alignment: .center)
                 .clipShape(Circle())
             
@@ -27,5 +27,5 @@ struct FolloweCell: View {
 }
 
 #Preview {
-    FolloweCell(follower: Follower(login: "Bharathi ganesh", avatarUrl: ""))
+    FolloweCell(follower: .constant(Follower(login: "Bharathi ganesh", avatarUrl: "")))
 }

@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct GFImageView: View {
-    @State var urlStr : String
+    @Binding var urlStr : String
     @State var avatarImage : Image? = nil
     var imageCache = GFNetworkManager.shared.cache
     
@@ -32,6 +32,7 @@ struct GFImageView: View {
             }
         }
         .onAppear{
+            print(urlStr)
             downloadAvatar(urlString: urlStr)
         }
     }
@@ -74,5 +75,5 @@ struct GFImageView: View {
 }
 
 #Preview {
-    GFImageView(urlStr: "")
+    GFImageView(urlStr: .constant(""))
 }

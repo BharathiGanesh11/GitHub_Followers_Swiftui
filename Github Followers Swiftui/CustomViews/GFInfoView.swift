@@ -46,7 +46,7 @@ enum InfoItemType
 struct GFInfoView: View {
     @State var icon : String
     @State var title : String
-    @State var count : Int
+    @Binding var count : Int
     var body: some View {
         VStack(spacing:10)
         {
@@ -66,5 +66,5 @@ struct GFInfoView: View {
 }
 
 #Preview {
-    GFInfoView(icon: "folder", title: "Public Repos", count: 45)
+    GFInfoView(icon: "folder", title: "Public Repos", count: .constant(0))
 }

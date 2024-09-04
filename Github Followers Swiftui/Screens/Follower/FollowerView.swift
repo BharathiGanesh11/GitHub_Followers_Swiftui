@@ -21,7 +21,7 @@ struct FollowerView: View {
             ScrollView{
                 LazyVGrid(columns: columns, spacing: 30 , content: {
                     ForEach(followerVM.followers.indices , id: \.self) { i in
-                        FolloweCell(follower: followerVM.followers[i])
+                        FolloweCell(follower: $followerVM.followers[i])
                             .frame(height: 100)
                             .background {
                                 if i == followerVM.followers.count - 1
@@ -76,13 +76,17 @@ struct FollowerView: View {
             }*/
         }
         .background(GFColors.systemBackground)
-        .navigationTitle(searchVm.userName)
+        .navigationTitle(followerVM.userName)
         .navigationBarTitleDisplayMode(.large)
         .onAppear{
-            followerVM.getFollowers(userName: searchVm.userName, page: followerVM.page)
+            followerVM.userName = searchVm.userName
+            //followerVM.getFollowers(userName: followerVM.userName, page: followerVM.page)
         }
         .sheet(isPresented: $showUserDetail) {
             UserInfoView(followerVM: followerVM)
+        }
+        .onDisappear{
+            followerVM.followers = []
         }
     }
 }
