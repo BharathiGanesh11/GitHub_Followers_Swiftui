@@ -16,6 +16,11 @@ enum ViewState
 }
 
 class FollowerViewModel : ObservableObject {
+    
+    static let shared = FollowerViewModel()
+    
+    private init(){}
+    
     @Published var followers : [Follower] = []
     @Published var viewState : ViewState = .none
     var page = 1
@@ -34,7 +39,7 @@ class FollowerViewModel : ObservableObject {
         }
     }
     
-    @Published var dummyVar = ""
+    @ObservedObject var errorResponse = ErrorResponse.shared
     
     func getFollowers(userName : String , page : Int)
     {
@@ -61,17 +66,48 @@ class FollowerViewModel : ObservableObject {
                         print("follower call working..!")
                         self.followers.append(contentsOf: followers)
                     }
-                }
-                
-                if self.followers.isEmpty
-                {
-                    DispatchQueue.main.async {
-                        let emptyStateMessage = "There is no followers for this account,do follow this account 😀..!"
+                    
+                    if self.followers.isEmpty
+                    {
                         self.viewState = .emptyState
-                        return
                     }
                 }
             case .failure(let error):
+                self.errorResponse.errorMessage = error.rawValue
+                DispatchQueue.main.async {
+                    self.viewState = .error
+                }
+            }
+        }
+    }
+    
+    
+    func addToFavorites()
+    {
+        GFNetworkManager.shared.getUserInfo(userName: userName) { [weak self] result in
+            guard let self = self else { return }
+            
+            switch result {
+            case .success(let userInfo):
+                let favorite = Follower(login: userInfo.login, avatarUrl: userInfo.avatarUrl)
+                PersistenceManager.updateFavorites(actionType: .add, with: favorite) { error in
+                    guard let error = error else {
+                        self.errorResponse.errorTitle = CommonWords.github
+                        self.errorResponse.errorMessage = GFError.addedToFavoriteList.rawValue
+                        DispatchQueue.main.async {
+                            self.viewState = .error
+                        }
+                        return
+                    }
+                    
+                    self.errorResponse.errorMessage = error.rawValue
+                    DispatchQueue.main.async {
+                        self.viewState = .error
+                    }
+                    
+                }
+            case .failure(let error):
+                self.errorResponse.errorMessage = error.rawValue
                 DispatchQueue.main.async {
                     self.viewState = .error
                 }

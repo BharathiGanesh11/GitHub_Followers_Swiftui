@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct FollowerView: View {
-    @ObservedObject var searchVm : SearchViewModel
-    @StateObject var followerVM = FollowerViewModel()
+    @State var username : String
+    @ObservedObject var followerVM = FollowerViewModel.shared
     @ObservedObject var userInfoVM = UserInfoViewModel.shared
     let columns = [GridItem(.flexible() , spacing: 10) , GridItem(.flexible() , spacing: 10) , GridItem(.flexible())]
     let threshold = Device.screenHeight * 0.57
@@ -34,7 +34,7 @@ struct FollowerView: View {
                                                 {
                                                     print(followerVM.restrictExe)
                                                     followerVM.page += 1
-                                                    followerVM.getFollowers(userName: searchVm.userName, page: followerVM.page)
+                                                    followerVM.getFollowers(userName: username, page: followerVM.page)
                                                 }
                                             }
                                     }
@@ -68,19 +68,24 @@ struct FollowerView: View {
                 }, set: { newValue in
                     followerVM.viewState = .none
                 }))
+                
+                GFAlert(showAlert: Binding(get: {
+                    true
+                }, set: { newValue in
+                    followerVM.viewState = .none
+                }), alertTitle: followerVM.errorResponse.errorTitle, message: followerVM.errorResponse.errorMessage, btntitle: "Ok")
             }
             
-            /*if followerVM.viewState == .emptyState
+            if followerVM.viewState == .emptyState
             {
-                Text("Empty State View Goes Here..!")
-            }*/
+                EmptyStateView(title: CommonWords.emptyStateMessage)
+            }
         }
         .background(GFColors.systemBackground)
         .navigationTitle(followerVM.userName)
         .navigationBarTitleDisplayMode(.large)
         .onAppear{
-            followerVM.userName = searchVm.userName
-            //followerVM.getFollowers(userName: followerVM.userName, page: followerVM.page)
+            followerVM.userName = username
         }
         .sheet(isPresented: $showUserDetail) {
             UserInfoView(followerVM: followerVM)
@@ -88,9 +93,19 @@ struct FollowerView: View {
         .onDisappear{
             followerVM.followers = []
         }
+        .toolbar {
+            ToolbarItem(placement: .topBarTrailing) {
+                Button(action: {
+                    followerVM.addToFavorites()
+                }, label: {
+                    Image(systemName: "plus")
+                        //.font(.headline)
+                })
+            }
+        }
     }
 }
 
 #Preview {
-    FollowerView(searchVm: SearchViewModel())
+    FollowerView(username : "")
 }

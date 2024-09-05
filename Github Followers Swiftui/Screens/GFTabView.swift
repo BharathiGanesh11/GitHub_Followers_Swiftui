@@ -18,8 +18,7 @@ struct GFTabView: View {
                     Image(systemName: SFSymbols.magnifyingglass)
                 }
             
-            Color.green
-                .ignoresSafeArea()
+            FavoritesList()
                 .tag(1)
                 .tabItem {
                     Text(CommonWords.favorites)

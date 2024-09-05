@@ -180,5 +180,5 @@ struct UserInfoView: View {
 }
 
 #Preview {
-    UserInfoView(followerVM: FollowerViewModel())
+    UserInfoView(followerVM: FollowerViewModel.shared)
 }

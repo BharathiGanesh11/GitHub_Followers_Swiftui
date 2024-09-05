@@ -27,12 +27,17 @@ enum CommonWords
     static let plsEnterUserNameToSearch = "Please Enter a User Name to Search"
     static let done = "Done"
     static let getProfile = "Get Profile"
+    static let github = "GitHub"
+    static let emptyStateMessage = "There is no followers for this account , do follow this account 😀..!"
+    static let unableToRemove = "Unable To Remove"
+    static let noFavorites = "There is no favorites added yet , please add a favorite user 😇..!"
 }
 
 enum Images
 {
     static let logo = Image("Logo")
     static let placeHolderImg = Image("PlaceHolder")
+    static let emptyState = Image("EmptyState")
 }
 
 enum Device {
@@ -49,4 +54,13 @@ enum GFColors {
     static let systemBackground = Color(uiColor: UIColor.systemBackground)
     static let secondarySysBackground = Color(uiColor: UIColor.secondarySystemBackground)
     static let sysPurple = Color(uiColor: UIColor.systemPurple)
+}
+
+// Error class
+class ErrorResponse : ObservableObject
+{
+    static let shared = ErrorResponse()
+    private init(){}
+    @Published var errorTitle : String = "Something Went Wrong"
+    @Published var errorMessage : String = ""
 }

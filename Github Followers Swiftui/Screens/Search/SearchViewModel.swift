@@ -9,6 +9,8 @@ import SwiftUI
 
 class SearchViewModel : ObservableObject
 {
+    static let shared = SearchViewModel()
+    private init(){}
     @Published var userName : String = ""
     @Published var showFollowerView : Bool = false
 }

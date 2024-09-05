@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct SearchView: View {
-    @StateObject var searchVM = SearchViewModel()
+    @ObservedObject var searchVM = SearchViewModel.shared
     @State var showAlert = false
     var body: some View {
         NavigationStack {
@@ -45,7 +45,7 @@ struct SearchView: View {
             }
             .toolbar(.hidden, for: .navigationBar)
             .navigationDestination(isPresented: $searchVM.showFollowerView) {
-                FollowerView(searchVm: searchVM)
+                FollowerView(username : searchVM.userName)
             }
             .overlay {
                 if showAlert
